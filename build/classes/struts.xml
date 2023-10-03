@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="default" extends="struts-default" namespace="/">
+
+		<!-- login action -->
+		<action name="login" class="cn.vente.model.User"
+			method="execute">
+			<result name="success">/vente-system/articles.jsp</result>
+			<result name="error">/user-system/sign-in.jsp</result>
+		</action>
+		
+        <!-- sign up action -->
+		<action name="sign_up" class="cn.vente.model.User"
+			method="check_user">
+
+			<result name="success">/user-system/sign-in.jsp</result>
+			<result name="error">/user-system/sign-up.jsp</result>
+
+		</action>
+		 
+		 <!-- logout -->
+		<action name="logout" class="UserController"
+			method="logout">
+			<interceptor-ref name="defaultStack">
+				<param name="params.excludeParams">true</param>
+			</interceptor-ref>
+
+			<result name="success">/user-system/sign-in.jsp</result>
+		</action>
+		
+		<!-- change password -->
+		<action name="change_pass" class="UserController"
+			method="change_password">
+
+			<result name="success">/vente-system/articles.jsp</result>
+			<result name="error">/user-system/reset-password.jsp</result>
+
+		</action>
+
+        <!-- add to cart action -->
+		<action name="toCart" class="CartController"
+			method="AddProduct">
+			<interceptor-ref name="defaultStack">
+				<param name="params.excludeParams">true</param>
+			</interceptor-ref>
+			<param name="id">${id}</param>
+			<result name="success">/vente-system/articles.jsp</result>
+		</action>
+      
+        <!-- romove article from cart  -->
+		<action name="Remove" class="CartController"
+			method="RemoveProduct">
+			<interceptor-ref name="defaultStack">
+				<param name="params.excludeParams">true</param>
+			</interceptor-ref>
+			<param name="id">${id}</param>
+			<result name="success">/vente-system/cart.jsp</result>
+		</action>
+
+        <!-- increment quantity action -->
+		<action name="inc_quantity" class="CartController"
+			method="Inc_quantity">
+			<interceptor-ref name="defaultStack">
+				<param name="params.excludeParams">true</param>
+			</interceptor-ref>
+			<param name="id">${inc_id}</param>
+			<result name="success">/vente-system/cart.jsp</result>
+		</action>
+
+        <!-- decrement quantity action -->
+		<action name="dec_quantity" class="CartController"
+			method="Dec_quantity">
+			<interceptor-ref name="defaultStack">
+				<param name="params.excludeParams">true</param>
+			</interceptor-ref>
+			<param name="id">${dec_id}</param>
+			<result name="success">/vente-system/cart.jsp</result>
+		</action>
+
+        <!-- generate pdf action -->
+		<action name="invoice_pdf" class="CartController"
+			method="generatePDF">
+			<interceptor-ref name="defaultStack">
+				<param name="params.excludeParams">true</param>
+			</interceptor-ref>
+
+			<result name="success">/vente-system/articles.jsp</result>
+			<result name="false">/vente-system/cart.jsp</result>
+		</action>
+		
+		<!-- search article action -->
+		<action name="search" class="Search"
+			method="execute">
+			<result name="success">/vente-system/search.jsp</result>			
+		</action>
+		
+		<!-- remove user action -->
+		<action name="RemoveUser" class="Search"
+			method="RemoveUser">
+			<interceptor-ref name="defaultStack">
+				<param name="params.excludeParams">true</param>
+			</interceptor-ref>
+			<param name="id">${id}</param>
+			<result name="success">/vente-system/users.jsp</result>
+		</action>
+		
+		<!-- make admin action -->
+		<action name="AdminUser" class="Search"
+			method="AdminUser">
+			<interceptor-ref name="defaultStack">
+				<param name="params.excludeParams">true</param>
+			</interceptor-ref>
+			<param name="id">${id}</param>
+			<result name="success">/vente-system/users.jsp</result>
+		</action>
+
+
+	</package>
+
+</struts>
+
